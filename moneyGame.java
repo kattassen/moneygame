@@ -5,7 +5,7 @@ import java.util.Comparator;
 
 class moneyGame {
     
-    public static boolean m_verbose = true;
+    public static boolean m_verbose = false;
 
     private static int m_noOfPlayers;
     private static int m_noOfRounds;
@@ -29,7 +29,8 @@ class moneyGame {
             int leadingPlayerIndex;
             int coins;
 
-            System.out.println("----------------------------------\n Round " + (i+1));
+            if (m_verbose) 
+                System.out.println("----------------------------------\n Round " + (i+1));
 
             for(int j = 0; j < m_noOfPlayers; j++) {
                 player = (moneyGamePlayer)playerList.get(j);
@@ -49,7 +50,15 @@ class moneyGame {
 
             for (int j = 0; j < m_noOfPlayers; j++) {
                 player = (moneyGamePlayer)playerList.get(j);
-                player.addPoints(m_noOfPlayers - j);
+                if (j == 0)
+                    player.addPoints((m_noOfPlayers - j) + 1);
+                else
+                    player.addPoints(m_noOfPlayers - j);
+            }
+
+            if (m_verbose) {
+                player = (moneyGamePlayer)playerList.get(0);
+                System.out.println("Roundwinner is: " + player.getName());
             }
         }
 
@@ -58,9 +67,9 @@ class moneyGame {
             public int compare(Object o1, Object o2) {
                moneyGamePlayer p1 = (moneyGamePlayer) o1;
                moneyGamePlayer p2 = (moneyGamePlayer) o2;
-               return p2.getCoinsThisRound() - p1.getCoinsThisRound();
+               return p2.getPoints() - p1.getPoints();
             }
-        }
+        });
 
         player = (moneyGamePlayer)playerList.get(0);
         System.out.println("----------------------------------\nWinner is: " + player.getName());

@@ -1,6 +1,7 @@
 /* Strategys: 0 - Even 
 *             1 - Total Random
-*             2 - Max 20 Random
+*             2 - Weighted Random x
+*             3 - Weighted Random x/2
 *
 */
 
@@ -50,6 +51,10 @@ class moneyGamePlayer {
         return m_name;
     }
 
+    public int getPoints() {
+        return m_points;
+    }
+
     public void addPoints(int points) {
         m_points = m_points + points;
         if (moneyGame.m_verbose)
@@ -67,12 +72,18 @@ class moneyGamePlayer {
             case 1:
                 // Total randomness
                 return rand.nextInt(m_coinsLeft);
-            default:
-                // "Even" randomness
-                if (1 == rand.nextInt(1))
+            case 2:
+                // "Even" randomness x
+                if (1 == rand.nextInt(2))
                     return m_coinsLeft/m_roundsLeft + rand.nextInt(m_coinsLeft/m_roundsLeft);
                 else
                     return m_coinsLeft/m_roundsLeft - rand.nextInt(m_coinsLeft/m_roundsLeft);
+            default:
+                // "Even" randomness x/2
+                if (1 == rand.nextInt(2))
+                    return m_coinsLeft/m_roundsLeft + (rand.nextInt(m_coinsLeft/m_roundsLeft)/2);
+                else
+                    return m_coinsLeft/m_roundsLeft - (rand.nextInt(m_coinsLeft/m_roundsLeft)/2);
                 
         }
     }
