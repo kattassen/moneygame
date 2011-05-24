@@ -26,6 +26,8 @@ class moneyGame {
         }
 
         for (int i = 0; i < m_noOfRounds; i++) {
+            int old_coins = 0;
+            int last_point = m_noOfPlayers + 1;
             int leadingCoins = -1;
             int leadingPlayerIndex;
             int coins;
@@ -49,12 +51,26 @@ class moneyGame {
  
             });
 
-            for (int j = 0; j < m_noOfPlayers; j++) {
+            for (int j = 0 ; j < m_noOfPlayers ; j++) {
                 player = (moneyGamePlayer)playerList.get(j);
                 if (j == 0)
-                    player.addPoints((m_noOfPlayers - j) + 1);
+                {
+                    player.addPoints(m_noOfPlayers + 1);
+                    last_point = m_noOfPlayers + 1;
+                }
                 else
-                    player.addPoints(m_noOfPlayers - j);
+                {
+                    if (old_coins != player.getCoinsThisRound())
+                    {
+                        player.addPoints(m_noOfPlayers - j);
+                        last_point = m_noOfPlayers - j;
+                    }
+                    else
+                    {
+                        player.addPoints(last_point);
+                    }
+                }
+                old_coins = player.getCoinsThisRound();
             }
 
             if (m_verbose) {
