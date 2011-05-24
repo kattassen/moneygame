@@ -13,7 +13,8 @@ class moneyGame {
 
     public static void main(String[] args) {
         moneyGamePlayer player;
-        System.out.println("$$$$ Money Game $$$$"); 
+        if (m_verbose)
+            System.out.println("$$$$ Money Game $$$$"); 
 
         parseArgs(args);
 
@@ -78,7 +79,8 @@ class moneyGame {
     private static boolean parseArgs(String[] args) {
         for(int i = 0; i < args.length; i++)
         {
-            System.out.println(args[i]);
+            if (m_verbose)
+                System.out.println(args[i]);
         }
 
             m_noOfPlayers = Integer.parseInt(args[0]);
