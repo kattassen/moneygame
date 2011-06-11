@@ -9,3 +9,5 @@ cat result.txt |grep Player6 -c
 cat result.txt |grep Player7 -c
 cat result.txt |grep Player8 -c
 cat result.txt |grep Player9 -c
+
+cat result.txt |grep Winner -c
